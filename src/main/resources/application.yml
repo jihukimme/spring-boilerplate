@@ -1,0 +1,108 @@
+# ===============================================================
+# Spring Boot Application Configuration (YAML Format)
+# ===============================================================
+
+spring:
+  application:
+    name: boilerplate-app # ?????? ?? ??
+
+  profiles:
+    active: dev # ???? ??? (dev/prod/local)
+
+  # 1. Thymeleaf View Engine ??
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+    cache: false # ?? ? ???? ?? ??? ?? false
+    encoding: UTF-8
+
+  # 2. Database Configuration (MySQL)
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    # ?? ?? ?? ??, ?? ??? ? Public Key ?? ?? ??
+    url: ${SPRING_DATASOURCE_URL}?allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Seoul&allowMultiQueries=true
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+    
+    # Connection Pool (HikariCP) ?? - ?? ???
+    hikari:
+      connection-timeout: 30000 # ?? ?? ?? ?? (30?)
+      idle-timeout: 600000      # ?? ?? ?? ?? (10?)
+      max-lifetime: 1800000     # ?? ?? ?? (30?)
+      maximum-pool-size: 10     # ?? ??? ??
+
+  # 3. JPA / Hibernate ??
+  jpa:
+    hibernate:
+      ddl-auto: update # ??? ?? ? ??? ?? ????
+    show-sql: true     # ???? SQL? ??? ??
+    properties:
+      hibernate:
+        format_sql: true # SQL? ?? ?? ??
+    database-platform: org.hibernate.dialect.MySQL8Dialect # MySQL 8 ?? ?? ??
+
+  # 4. JSON Serialization (Jackson) ??
+  jackson:
+    time-zone: Asia/Seoul
+
+  # 5. Mail Service ?? (Gmail SMTP ??)
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ssy06116@gmail.com # ?? ?? ??
+    password: jnnhbpoxzcsygcps   # ? ???? (2? ?? ? ??? ?)
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+    transport:
+      protocol: smtp
+
+  # 6. ?? ?? ??
+  messages:
+    encoding: UTF-8
+  main:
+    allow-bean-definition-overriding: true # ?? ?? ? ?? ??
+
+# ===============================================================
+# Server & Logging & Custom App Configuration
+# ===============================================================
+
+server:
+  port: 8080
+  servlet:
+    context-path: /
+  error:
+    whitelabel:
+      enabled: false # ?? ?? ??? ???? (??? ?? ???)
+  compression:
+    enabled: true # ?? ??? ?? ?? (?? ??)
+    mime-types: text/html,application/json
+
+logging:
+  level:
+    org.springframework.web: DEBUG # ? ?? ?? ??
+    com.example: INFO             # ? ???? ?? ?? ??
+
+# ???? ?? ?? (Actuator)
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  health:
+    defaults:
+      enabled: true
+    db: enabled
+    mysql: enabled
+
+# ???? ??? ?? (JWT, File Path ?)
+app:
+  jwtSecret: QwErTyUiOpAsDfGhJkLzXcVbNmQwErTyUiOpAsDfGhJkLzXcVbNm1234567890QWERTYUIOPASDFGHJKLZXCVBNM
+  jwtShortExpirationMs: 1800000  # 30?
+  jwtRefreshExpirationMs: 604800000 # 7?
+
+file:
+  upload-dir: D:/KDT_BE12_Toy_Project4/application-server/application/src/main/resources/static/pdf
