@@ -17,6 +17,7 @@ public class AuthInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
+
         // Preflight 요청(OPTIONS)은 건너뜀 (CORS 이슈 방지)
         if (request.getMethod().equals("OPTIONS")) {
             return true;
