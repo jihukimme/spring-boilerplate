@@ -17,27 +17,27 @@ public class JwtProvider {
     private final Key key;
     private final JwtParser jwtParser;
 
-    private final long accessTokenExpTime;
-    private final long refreshTokenExpTime;
+    private final long accessTokenExpiration;
+    private final long refreshTokenExpiration;
 
     public JwtProvider(
-            @Value("${app.jwtSecret}") String secretKey,
-            @Value("${app.jwtShortExpirationMs}") long accessTokenExpTime,
-            @Value("${app.jwtRefreshExpirationMs}") long refreshTokenExpTime
+            @Value("${app.jwt.secret}") String secretKey,
+            @Value("${app.jwt.access-token-expiration}") long accessTokenExpiration,
+            @Value("${app.jwt.refresh-token-expiration}") long refreshTokenExpiration
     ) {
         byte[] keyBytes = Decoders.BASE64.decode(secretKey);
         this.key = Keys.hmacShaKeyFor(keyBytes);
-        this.accessTokenExpTime = accessTokenExpTime;
-        this.refreshTokenExpTime = refreshTokenExpTime;
+        this.accessTokenExpiration = accessTokenExpiration;
+        this.refreshTokenExpiration = refreshTokenExpiration;
         this.jwtParser = Jwts.parserBuilder().setSigningKey(key).build();
     }
 
     public String createAccessToken(Long userId, String email) {
-        return createToken(userId, email, accessTokenExpTime);
+        return createToken(userId, email, accessTokenExpiration);
     }
 
     public String createRefreshToken(Long userId, String email) {
-        return createToken(userId, email, refreshTokenExpTime);
+        return createToken(userId, email, refreshTokenExpiration);
     }
 
     private String createToken(Long userId, String email, long expireTime) {

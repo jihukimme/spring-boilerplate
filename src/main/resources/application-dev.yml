@@ -33,4 +33,5 @@ logging:
 
 # 개발용 보안 키
 app:
-  jwtSecret: ${JWT_SECRET}
+  jwt:
+    secret: ${JWT_SECRET}

@@ -23,8 +23,8 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: ssy06116@gmail.com
-    password: jnnhbpoxzcsygcps # 앱 전용 비밀번호
+    username: ${MAIL_USERNAME}
+    password: ${MAIL_PASSWORD}
     properties:
       mail:
         smtp:
@@ -42,5 +42,6 @@ server:
 # [Custom] 사용자 정의 설정 (자바 코드에서 읽어 사용)
 # ===============================================================
 app:
-  jwtShortExpirationMs: 1800000     # Access Token 만료 시간 (30분)
-  jwtRefreshExpirationMs: 604800000  # Refresh Token 만료 시간 (7일)
+  jwt:
+    access-token-expiration: ${JWT_ACCESS_EXPIRATION:1800000}
+    refresh-token-expiration: ${JWT_REFRESH_EXPIRATION:604800000}
