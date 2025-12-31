@@ -4,53 +4,53 @@
 
 spring:
   application:
-    name: boilerplate-app # ?????? ?? ??
+    name: boilerplate-app # 애플리케이션 식별 이름
 
   profiles:
-    active: dev # ???? ??? (dev/prod/local)
+    active: develop # 활성화된 프로필 (develop/production)
 
-  # 1. Thymeleaf View Engine ??
+  # 1. Thymeleaf View Engine 설정
   thymeleaf:
     prefix: classpath:/templates/
     suffix: .html
-    cache: false # ?? ? ???? ?? ??? ?? false
+    cache: false # 개발 시 수정사항 즉시 반영을 위해 false
     encoding: UTF-8
 
   # 2. Database Configuration (MySQL)
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    # ?? ?? ?? ??, ?? ??? ? Public Key ?? ?? ??
+    # 환경 변수 사용 권장, 뒤에 인코딩 및 Public Key 관련 옵션 포함
     url: ${SPRING_DATASOURCE_URL}?allowPublicKeyRetrieval=true&useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Seoul&allowMultiQueries=true
     username: ${SPRING_DATASOURCE_USERNAME}
     password: ${SPRING_DATASOURCE_PASSWORD}
     
-    # Connection Pool (HikariCP) ?? - ?? ???
+    # Connection Pool (HikariCP) 설정 - 성능 최적화
     hikari:
-      connection-timeout: 30000 # ?? ?? ?? ?? (30?)
-      idle-timeout: 600000      # ?? ?? ?? ?? (10?)
-      max-lifetime: 1800000     # ?? ?? ?? (30?)
-      maximum-pool-size: 10     # ?? ??? ??
+      connection-timeout: 30000 # 연결 시도 최대 시간 (30초)
+      idle-timeout: 600000      # 유휴 연결 유지 시간 (10분)
+      max-lifetime: 1800000     # 연결 최대 수명 (30분)
+      maximum-pool-size: 10     # 최대 커넥션 개수
 
-  # 3. JPA / Hibernate ??
+  # 3. JPA / Hibernate 설정
   jpa:
     hibernate:
-      ddl-auto: update # ??? ?? ? ??? ?? ????
-    show-sql: true     # ???? SQL? ??? ??
+      ddl-auto: update # 엔티티 변경 시 테이블 자동 업데이트
+    show-sql: true     # 실행되는 SQL을 로그에 출력
     properties:
       hibernate:
-        format_sql: true # SQL? ?? ?? ??
-    database-platform: org.hibernate.dialect.MySQL8Dialect # MySQL 8 ?? ?? ??
+        format_sql: true # SQL을 보기 좋게 정렬
+    database-platform: org.hibernate.dialect.MySQL8Dialect # MySQL 8 버전 방언 사용
 
-  # 4. JSON Serialization (Jackson) ??
+  # 4. JSON Serialization (Jackson) 설정
   jackson:
     time-zone: Asia/Seoul
 
-  # 5. Mail Service ?? (Gmail SMTP ??)
+  # 5. Mail Service 설정 (Gmail SMTP 기준)
   mail:
     host: smtp.gmail.com
     port: 587
-    username: ssy06116@gmail.com # ?? ?? ??
-    password: jnnhbpoxzcsygcps   # ? ???? (2? ?? ? ??? ?)
+    username: ssy06116@gmail.com # 실제 메일 계정
+    password: jnnhbpoxzcsygcps   # 앱 비밀번호 (2차 인증 후 생성된 값)
     properties:
       mail:
         smtp:
@@ -60,11 +60,11 @@ spring:
     transport:
       protocol: smtp
 
-  # 6. ?? ?? ??
+  # 6. 기타 공통 설정
   messages:
     encoding: UTF-8
   main:
-    allow-bean-definition-overriding: true # ?? ?? ? ?? ??
+    allow-bean-definition-overriding: true # 동일 이름 빈 정의 허용
 
 # ===============================================================
 # Server & Logging & Custom App Configuration
@@ -76,17 +76,17 @@ server:
     context-path: /
   error:
     whitelabel:
-      enabled: false # ?? ?? ??? ???? (??? ?? ???)
+      enabled: false # 기본 에러 페이지 비활성화 (커스텀 에러 처리용)
   compression:
-    enabled: true # ?? ??? ?? ?? (?? ??)
+    enabled: true # 응답 데이터 압축 사용 (성능 향상)
     mime-types: text/html,application/json
 
 logging:
   level:
-    org.springframework.web: DEBUG # ? ?? ?? ??
-    com.example: INFO             # ? ???? ?? ?? ??
+    org.springframework.web: DEBUG # 웹 관련 상세 로그
+    com.example: INFO             # 내 프로젝트 코드 로그 수준
 
-# ???? ?? ?? (Actuator)
+# 모니터링 관리 도구 (Actuator)
 management:
   endpoints:
     web:
@@ -98,11 +98,11 @@ management:
     db: enabled
     mysql: enabled
 
-# ???? ??? ?? (JWT, File Path ?)
+# 프로젝트 커스텀 설정 (JWT, File Path 등)
 app:
   jwtSecret: QwErTyUiOpAsDfGhJkLzXcVbNmQwErTyUiOpAsDfGhJkLzXcVbNm1234567890QWERTYUIOPASDFGHJKLZXCVBNM
-  jwtShortExpirationMs: 1800000  # 30?
-  jwtRefreshExpirationMs: 604800000 # 7?
+  jwtShortExpirationMs: 1800000  # 30분
+  jwtRefreshExpirationMs: 604800000 # 7일
 
 file:
   upload-dir: D:/KDT_BE12_Toy_Project4/application-server/application/src/main/resources/static/pdf
