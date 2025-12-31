@@ -1,0 +1,31 @@
+/* Pretendard font */
+
+@font-face {
+    font-family: 'Pretendard';
+    font-weight: 900;
+    src: url('../fonts/Pretendard-Black.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    font-weight: 700;
+    src: url('../fonts/Pretendard-Bold.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    font-weight: 500;
+    src: url('../fonts/Pretendard-Medium.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    font-weight: 400;
+    src: url('../fonts/Pretendard-Regular.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'Pretendard';
+    font-weight: 300;
+    src: url('../fonts/Pretendard-Thin.otf') format('opentype');
+}
