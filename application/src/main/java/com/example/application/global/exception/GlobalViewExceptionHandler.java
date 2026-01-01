@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice(annotations = Controller.class)
 public class GlobalViewExceptionHandler {
 
+    // ViewController에서 발생하는 예외를 전역적으로 처리해 반환 (ViewController에서 예외를 던져야 함)
     @ExceptionHandler(CustomException.class)
     public String handleCustomException(CustomException e) {
         ErrorCode errorCode = e.getErrorCode();
