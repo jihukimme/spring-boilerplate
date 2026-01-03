@@ -75,13 +75,7 @@ function initRegister() {
     const form = document.getElementById('registerForm');
     if (!form) return;
 
-    // Datepicker 설정
-    const birthInput = document.getElementById('userBirthDate');
-    if (birthInput && typeof $ !== 'undefined' && $.fn.datepicker) {
-        $(birthInput).datepicker({
-            maxDate: "-10y", changeMonth: true, changeYear: true, yearRange: "c-100:c", dateFormat: "yy-mm-dd"
-        });
-    }
+
 
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -92,8 +86,7 @@ function initRegister() {
         const confirmPassword = document.getElementById('confirmPassword').value;
         const phoneNumber = document.getElementById('userPhoneNumber').value;
         const birthDate = birthInput?.value || '';
-        const jobSelect = document.getElementById('userJob');
-        const job = (jobSelect && jobSelect.value !== '선택...') ? jobSelect.value : null;
+        const job = document.getElementById('userJob').value;
 
         // 유효성 검사 로직
         if (!validateRegister(name, email, password, confirmPassword)) return;
