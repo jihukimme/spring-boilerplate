@@ -23,12 +23,12 @@
 </head>
 
 <body>
-    <div th:replace="fragments/header :: header"></div>
+    <div th:replace="~{fragments/header :: header}"></div>
     <main class="flex-shrink-0">
         <section>
             <div layout:fragment="content"></div>
         </section>
     </main>
-    <div class="mt-auto" th:insert="fragments/footer :: footer"></div>
+    <div class="mt-auto" th:insert="~{fragments/footer :: footer}"></div>
 </body>
 </html>
